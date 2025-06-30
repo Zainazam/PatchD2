@@ -29,6 +29,6 @@
       "expo-router"
     ],
     "scheme": "patchd",
-    "sdkVersion": "53.0.0"
+    "sdkVersion": "52.0.30"
   }
 }

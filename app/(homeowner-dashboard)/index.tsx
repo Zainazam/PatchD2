@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { Plus, Home, Wrench, Clock } from 'lucide-react-native';
+import { Plus, Chrome as Home, Wrench, Clock } from 'lucide-react-native';
 import { useAuth } from '@/contexts/AuthContext';
 
 export default function HomeownerHomeScreen() {

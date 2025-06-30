@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "splash": {
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
@@ -29,6 +29,9 @@
       "expo-router"
     ],
     "scheme": "patchd",
-    "sdkVersion": "53.0.0"
+    "sdkVersion": "53.0.0",
+    "experiments": {
+      "typedRoutes": false
+    }
   }
 }

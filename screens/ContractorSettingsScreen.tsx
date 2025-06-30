@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Switch } from 'react-native';
 import { Bell, Shield, CreditCard, CircleHelp as HelpCircle, LogOut, ChevronRight, Moon, Globe, Smartphone } from 'lucide-react-native';
 import { useState } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 
-export default function HomeownerSettingsScreen() {
+export default function ContractorSettingsScreen() {
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [darkModeEnabled, setDarkModeEnabled] = useState(false);
   const { signOut } = useAuth();
@@ -59,16 +59,16 @@ export default function HomeownerSettingsScreen() {
         <Text style={styles.sectionTitle}>Account</Text>
         
         <SettingItem
-          icon={<Shield size={20} color="#2563eb" />}
+          icon={<Shield size={20} color="#059669" />}
           title="Privacy & Security"
           subtitle="Manage your account security"
           onPress={() => {}}
         />
         
         <SettingItem
-          icon={<CreditCard size={20} color="#059669" />}
-          title="Payment Methods"
-          subtitle="Manage cards and billing"
+          icon={<CreditCard size={20} color="#2563eb" />}
+          title="Payment & Billing"
+          subtitle="Manage earnings and payments"
           onPress={() => {}}
         />
       </View>
@@ -80,14 +80,14 @@ export default function HomeownerSettingsScreen() {
         <SettingItem
           icon={<Bell size={20} color="#f59e0b" />}
           title="Notifications"
-          subtitle="Push notifications and alerts"
+          subtitle="Project alerts and updates"
           showArrow={false}
           rightComponent={
             <Switch
               value={notificationsEnabled}
               onValueChange={setNotificationsEnabled}
-              trackColor={{ false: '#e2e8f0', true: '#bfdbfe' }}
-              thumbColor={notificationsEnabled ? '#2563eb' : '#94a3b8'}
+              trackColor={{ false: '#e2e8f0', true: '#bbf7d0' }}
+              thumbColor={notificationsEnabled ? '#059669' : '#94a3b8'}
             />
           }
         />
@@ -101,8 +101,8 @@ export default function HomeownerSettingsScreen() {
             <Switch
               value={darkModeEnabled}
               onValueChange={setDarkModeEnabled}
-              trackColor={{ false: '#e2e8f0', true: '#bfdbfe' }}
-              thumbColor={darkModeEnabled ? '#2563eb' : '#94a3b8'}
+              trackColor={{ false: '#e2e8f0', true: '#bbf7d0' }}
+              thumbColor={darkModeEnabled ? '#059669' : '#94a3b8'}
             />
           }
         />

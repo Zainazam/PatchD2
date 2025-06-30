@@ -2,10 +2,13 @@ import { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { ArrowLeft, Mail, Lock } from 'lucide-react-native';
-import { router } from 'expo-router';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '../lib/supabase';
 
-export default function ContractorLoginScreen() {
+interface ContractorLoginScreenProps {
+  navigation: any;
+}
+
+export default function ContractorLoginScreen({ navigation }: ContractorLoginScreenProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -41,7 +44,7 @@ export default function ContractorLoginScreen() {
       <View style={styles.header}>
         <TouchableOpacity 
           style={styles.backButton} 
-          onPress={() => router.back()}
+          onPress={() => navigation.goBack()}
           activeOpacity={0.8}
         >
           <ArrowLeft size={24} color="#1e293b" />
@@ -96,7 +99,7 @@ export default function ContractorLoginScreen() {
 
           <View style={styles.signupPrompt}>
             <Text style={styles.signupText}>Don't have an account? </Text>
-            <TouchableOpacity onPress={() => router.push('/(contractor-auth)/signup')}>
+            <TouchableOpacity onPress={() => navigation.navigate('ContractorSignup')}>
               <Text style={styles.signupLink}>Sign up</Text>
             </TouchableOpacity>
           </View>

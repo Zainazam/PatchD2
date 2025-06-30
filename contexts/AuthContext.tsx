@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Session, User } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
-import { router } from 'expo-router';
 
 interface AuthContextType {
   session: Session | null;
@@ -44,18 +43,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setSession(session);
         setUser(session?.user ?? null);
         setLoading(false);
-
-        // Handle navigation based on auth state
-        if (event === 'SIGNED_IN' && session?.user) {
-          const role = session.user.user_metadata?.role;
-          if (role === 'homeowner') {
-            router.replace('/(homeowner-dashboard)');
-          } else if (role === 'contractor') {
-            router.replace('/(contractor-dashboard)');
-          }
-        } else if (event === 'SIGNED_OUT') {
-          router.replace('/');
-        }
       }
     );
 

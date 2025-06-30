@@ -2,23 +2,20 @@ import { useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Chrome as HomeIcon, Hammer, ArrowRight } from 'lucide-react-native';
-import { useAuth } from '@/contexts/AuthContext';
-import { router } from 'expo-router';
+import { useAuth } from '../contexts/AuthContext';
 
 const { width } = Dimensions.get('window');
 
-export default function LandingScreen() {
+interface LandingScreenProps {
+  navigation: any;
+}
+
+export default function LandingScreen({ navigation }: LandingScreenProps) {
   const { user, loading } = useAuth();
 
   useEffect(() => {
     if (!loading && user) {
-      // Redirect authenticated users to their dashboard
-      const role = user.user_metadata?.role;
-      if (role === 'homeowner') {
-        router.replace('/(homeowner-dashboard)');
-      } else if (role === 'contractor') {
-        router.replace('/(contractor-dashboard)');
-      }
+      // Navigation is handled by the main navigator
     }
   }, [user, loading]);
 
@@ -28,11 +25,6 @@ export default function LandingScreen() {
         <Text style={styles.loadingText}>Loading...</Text>
       </View>
     );
-  }
-
-  // Don't show landing if user is authenticated
-  if (user) {
-    return null;
   }
 
   return (
@@ -67,7 +59,7 @@ export default function LandingScreen() {
         <TouchableOpacity 
           style={[styles.actionCard, styles.homeownerCard]} 
           activeOpacity={0.8}
-          onPress={() => router.push('/(homeowner-auth)')}
+          onPress={() => navigation.navigate('HomeownerLogin')}
         >
           <View style={styles.cardIcon}>
             <HomeIcon size={32} color="#ffffff" />
@@ -82,7 +74,7 @@ export default function LandingScreen() {
         <TouchableOpacity 
           style={[styles.actionCard, styles.contractorCard]} 
           activeOpacity={0.8}
-          onPress={() => router.push('/(contractor-auth)')}
+          onPress={() => navigation.navigate('ContractorLogin')}
         >
           <View style={styles.cardIcon}>
             <Hammer size={32} color="#ffffff" />

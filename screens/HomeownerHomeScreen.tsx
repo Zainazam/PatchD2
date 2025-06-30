@@ -1,9 +1,9 @@
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { Search, Hammer, DollarSign, Clock, TrendingUp } from 'lucide-react-native';
-import { useAuth } from '@/contexts/AuthContext';
+import { Plus, Chrome as Home, Wrench, Clock } from 'lucide-react-native';
+import { useAuth } from '../contexts/AuthContext';
 
-export default function ContractorHomeScreen() {
+export default function HomeownerHomeScreen() {
   const { user, signOut } = useAuth();
 
   return (
@@ -14,7 +14,7 @@ export default function ContractorHomeScreen() {
       <View style={styles.header}>
         <View>
           <Text style={styles.greeting}>Welcome back,</Text>
-          <Text style={styles.userName}>{user?.user_metadata?.name || 'Contractor'}</Text>
+          <Text style={styles.userName}>{user?.user_metadata?.name || 'Homeowner'}</Text>
         </View>
         <TouchableOpacity style={styles.signOutButton} onPress={signOut}>
           <Text style={styles.signOutText}>Sign Out</Text>
@@ -27,70 +27,43 @@ export default function ContractorHomeScreen() {
         
         <TouchableOpacity style={styles.primaryAction} activeOpacity={0.8}>
           <View style={styles.actionIcon}>
-            <Search size={24} color="#ffffff" />
+            <Plus size={24} color="#ffffff" />
           </View>
           <View style={styles.actionContent}>
-            <Text style={styles.actionTitle}>Browse Projects</Text>
-            <Text style={styles.actionSubtitle}>Find new opportunities</Text>
+            <Text style={styles.actionTitle}>Start New Project</Text>
+            <Text style={styles.actionSubtitle}>Get AI-powered quotes instantly</Text>
           </View>
         </TouchableOpacity>
       </View>
 
       {/* Dashboard Stats */}
       <View style={styles.statsSection}>
-        <Text style={styles.sectionTitle}>Your Performance</Text>
+        <Text style={styles.sectionTitle}>Your Projects</Text>
         
         <View style={styles.statsGrid}>
           <View style={styles.statCard}>
             <View style={styles.statIcon}>
               <Clock size={20} color="#d97706" />
             </View>
-            <Text style={styles.statNumber}>4</Text>
-            <Text style={styles.statLabel}>Active Jobs</Text>
+            <Text style={styles.statNumber}>2</Text>
+            <Text style={styles.statLabel}>In Progress</Text>
           </View>
           
           <View style={styles.statCard}>
             <View style={styles.statIcon}>
-              <Hammer size={20} color="#059669" />
+              <Wrench size={20} color="#059669" />
             </View>
-            <Text style={styles.statNumber}>23</Text>
+            <Text style={styles.statNumber}>5</Text>
             <Text style={styles.statLabel}>Completed</Text>
           </View>
           
           <View style={styles.statCard}>
             <View style={styles.statIcon}>
-              <DollarSign size={20} color="#2563eb" />
+              <Home size={20} color="#2563eb" />
             </View>
-            <Text style={styles.statNumber}>$85K</Text>
-            <Text style={styles.statLabel}>Total Earned</Text>
+            <Text style={styles.statNumber}>$32K</Text>
+            <Text style={styles.statLabel}>Total Value</Text>
           </View>
-        </View>
-      </View>
-
-      {/* Performance Metrics */}
-      <View style={styles.metricsSection}>
-        <Text style={styles.sectionTitle}>This Month</Text>
-        
-        <View style={styles.metricCard}>
-          <View style={styles.metricHeader}>
-            <Text style={styles.metricTitle}>Revenue</Text>
-            <View style={styles.trendBadge}>
-              <TrendingUp size={16} color="#059669" />
-              <Text style={styles.trendText}>+12%</Text>
-            </View>
-          </View>
-          <Text style={styles.metricValue}>$12,450</Text>
-        </View>
-        
-        <View style={styles.metricCard}>
-          <View style={styles.metricHeader}>
-            <Text style={styles.metricTitle}>Projects Won</Text>
-            <View style={styles.trendBadge}>
-              <TrendingUp size={16} color="#059669" />
-              <Text style={styles.trendText}>+8%</Text>
-            </View>
-          </View>
-          <Text style={styles.metricValue}>6 projects</Text>
         </View>
       </View>
 
@@ -99,13 +72,13 @@ export default function ContractorHomeScreen() {
         <Text style={styles.sectionTitle}>Recent Activity</Text>
         
         <View style={styles.activityCard}>
-          <Text style={styles.activityTitle}>New project inquiry received</Text>
-          <Text style={styles.activityTime}>1 hour ago</Text>
+          <Text style={styles.activityTitle}>Kitchen Renovation Quote Received</Text>
+          <Text style={styles.activityTime}>2 hours ago</Text>
         </View>
         
         <View style={styles.activityCard}>
-          <Text style={styles.activityTitle}>Kitchen renovation completed</Text>
-          <Text style={styles.activityTime}>2 days ago</Text>
+          <Text style={styles.activityTitle}>Bathroom Project Started</Text>
+          <Text style={styles.activityTime}>1 day ago</Text>
         </View>
       </View>
     </ScrollView>
@@ -160,7 +133,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   primaryAction: {
-    backgroundColor: '#059669',
+    backgroundColor: '#2563eb',
     borderRadius: 16,
     padding: 20,
     flexDirection: 'row',
@@ -239,53 +212,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#64748b',
     textAlign: 'center',
-  },
-  metricsSection: {
-    paddingHorizontal: 20,
-    paddingBottom: 24,
-  },
-  metricCard: {
-    backgroundColor: '#ffffff',
-    padding: 20,
-    borderRadius: 12,
-    marginBottom: 12,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  metricHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  metricTitle: {
-    fontSize: 16,
-    color: '#64748b',
-  },
-  trendBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#dcfce7',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
-    gap: 4,
-  },
-  trendText: {
-    fontSize: 12,
-    color: '#059669',
-    fontWeight: '600',
-  },
-  metricValue: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#1e293b',
   },
   activitySection: {
     paddingHorizontal: 20,

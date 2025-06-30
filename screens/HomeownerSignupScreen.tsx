@@ -1,30 +1,45 @@
 import { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { ArrowLeft, Mail, Lock } from 'lucide-react-native';
-import { router } from 'expo-router';
-import { supabase } from '@/lib/supabase';
+import { ArrowLeft, Mail, Lock, User } from 'lucide-react-native';
+import { supabase } from '../lib/supabase';
 
-export default function HomeownerLoginScreen() {
+interface HomeownerSignupScreenProps {
+  navigation: any;
+}
+
+export default function HomeownerSignupScreen({ navigation }: HomeownerSignupScreenProps) {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async () => {
-    if (!email || !password) {
+  const handleSignup = async () => {
+    if (!name || !email || !password) {
       Alert.alert('Error', 'Please fill in all fields');
+      return;
+    }
+
+    if (password.length < 6) {
+      Alert.alert('Error', 'Password must be at least 6 characters');
       return;
     }
 
     setLoading(true);
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          data: {
+            role: 'homeowner',
+            name: name,
+          },
+        },
       });
 
       if (error) {
-        Alert.alert('Login Error', error.message);
+        Alert.alert('Signup Error', error.message);
       }
     } catch (error) {
       Alert.alert('Error', 'An unexpected error occurred');
@@ -41,22 +56,34 @@ export default function HomeownerLoginScreen() {
       <View style={styles.header}>
         <TouchableOpacity 
           style={styles.backButton} 
-          onPress={() => router.back()}
+          onPress={() => navigation.goBack()}
           activeOpacity={0.8}
         >
           <ArrowLeft size={24} color="#1e293b" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Homeowner Login</Text>
+        <Text style={styles.headerTitle}>Homeowner Signup</Text>
         <View style={styles.placeholder} />
       </View>
 
       {/* Content */}
       <View style={styles.content}>
         <View style={styles.form}>
-          <Text style={styles.title}>Welcome back!</Text>
-          <Text style={styles.subtitle}>Sign in to your homeowner account</Text>
+          <Text style={styles.title}>Create your account</Text>
+          <Text style={styles.subtitle}>Join as a homeowner to get AI-powered quotes</Text>
 
           <View style={styles.inputContainer}>
+            <View style={styles.inputWrapper}>
+              <User size={20} color="#64748b" style={styles.inputIcon} />
+              <TextInput
+                style={styles.input}
+                placeholder="Full name"
+                value={name}
+                onChangeText={setName}
+                autoCapitalize="words"
+                autoComplete="name"
+              />
+            </View>
+
             <View style={styles.inputWrapper}>
               <Mail size={20} color="#64748b" style={styles.inputIcon} />
               <TextInput
@@ -74,30 +101,30 @@ export default function HomeownerLoginScreen() {
               <Lock size={20} color="#64748b" style={styles.inputIcon} />
               <TextInput
                 style={styles.input}
-                placeholder="Password"
+                placeholder="Password (min. 6 characters)"
                 value={password}
                 onChangeText={setPassword}
                 secureTextEntry
-                autoComplete="password"
+                autoComplete="new-password"
               />
             </View>
           </View>
 
           <TouchableOpacity
-            style={[styles.loginButton, loading && styles.loginButtonDisabled]}
-            onPress={handleLogin}
+            style={[styles.signupButton, loading && styles.signupButtonDisabled]}
+            onPress={handleSignup}
             disabled={loading}
             activeOpacity={0.8}
           >
-            <Text style={styles.loginButtonText}>
-              {loading ? 'Signing in...' : 'Sign In'}
+            <Text style={styles.signupButtonText}>
+              {loading ? 'Creating account...' : 'Create Account'}
             </Text>
           </TouchableOpacity>
 
-          <View style={styles.signupPrompt}>
-            <Text style={styles.signupText}>Don't have an account? </Text>
-            <TouchableOpacity onPress={() => router.push('/(homeowner-auth)/signup')}>
-              <Text style={styles.signupLink}>Sign up</Text>
+          <View style={styles.loginPrompt}>
+            <Text style={styles.loginText}>Already have an account? </Text>
+            <TouchableOpacity onPress={() => navigation.navigate('HomeownerLogin')}>
+              <Text style={styles.loginLink}>Sign in</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -174,31 +201,31 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#1e293b',
   },
-  loginButton: {
+  signupButton: {
     backgroundColor: '#2563eb',
     borderRadius: 12,
     paddingVertical: 16,
     alignItems: 'center',
     marginBottom: 24,
   },
-  loginButtonDisabled: {
+  signupButtonDisabled: {
     opacity: 0.6,
   },
-  loginButtonText: {
+  signupButtonText: {
     color: '#ffffff',
     fontSize: 16,
     fontWeight: '600',
   },
-  signupPrompt: {
+  loginPrompt: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  signupText: {
+  loginText: {
     fontSize: 16,
     color: '#64748b',
   },
-  signupLink: {
+  loginLink: {
     fontSize: 16,
     color: '#2563eb',
     fontWeight: '600',

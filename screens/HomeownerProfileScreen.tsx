@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
-import { CreditCard as Edit, MapPin, Phone, Mail, Star, Award, Briefcase } from 'lucide-react-native';
-import { useAuth } from '@/contexts/AuthContext';
+import { CreditCard as Edit, MapPin, Phone, Mail, Star, Award } from 'lucide-react-native';
+import { useAuth } from '../contexts/AuthContext';
 
-export default function ContractorProfileScreen() {
+export default function HomeownerProfileScreen() {
   const { user } = useAuth();
 
   return (
@@ -11,7 +11,7 @@ export default function ContractorProfileScreen() {
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Profile</Text>
         <TouchableOpacity style={styles.editButton} activeOpacity={0.8}>
-          <Edit size={20} color="#059669" />
+          <Edit size={20} color="#2563eb" />
         </TouchableOpacity>
       </View>
 
@@ -19,7 +19,7 @@ export default function ContractorProfileScreen() {
       <View style={styles.profileSection}>
         <View style={styles.avatarContainer}>
           <Image
-            source={{ uri: 'https://images.pexels.com/photos/1516680/pexels-photo-1516680.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2' }}
+            source={{ uri: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2' }}
             style={styles.avatar}
           />
           <View style={styles.verifiedBadge}>
@@ -27,16 +27,13 @@ export default function ContractorProfileScreen() {
           </View>
         </View>
         
-        <Text style={styles.userName}>{user?.user_metadata?.name || 'Contractor'}</Text>
-        <Text style={styles.userType}>Licensed Contractor</Text>
-        {user?.user_metadata?.company && (
-          <Text style={styles.companyName}>{user.user_metadata.company}</Text>
-        )}
+        <Text style={styles.userName}>{user?.user_metadata?.name || 'Homeowner'}</Text>
+        <Text style={styles.userType}>Homeowner</Text>
         
         <View style={styles.ratingContainer}>
           <Star size={16} color="#f59e0b" fill="#f59e0b" />
-          <Text style={styles.rating}>4.9</Text>
-          <Text style={styles.reviewCount}>(47 reviews)</Text>
+          <Text style={styles.rating}>4.8</Text>
+          <Text style={styles.reviewCount}>(24 reviews)</Text>
         </View>
       </View>
 
@@ -51,58 +48,38 @@ export default function ContractorProfileScreen() {
         
         <View style={styles.contactItem}>
           <Phone size={20} color="#64748b" />
-          <Text style={styles.contactText}>(555) 987-6543</Text>
+          <Text style={styles.contactText}>(555) 123-4567</Text>
         </View>
         
         <View style={styles.contactItem}>
           <MapPin size={20} color="#64748b" />
-          <Text style={styles.contactText}>San Francisco Bay Area</Text>
+          <Text style={styles.contactText}>San Francisco, CA</Text>
         </View>
       </View>
 
-      {/* Business Stats */}
+      {/* Stats */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Business Performance</Text>
+        <Text style={styles.sectionTitle}>My Stats</Text>
         
         <View style={styles.statsGrid}>
           <View style={styles.statItem}>
-            <Text style={styles.statNumber}>47</Text>
+            <Text style={styles.statNumber}>12</Text>
             <Text style={styles.statLabel}>Projects Completed</Text>
           </View>
           
           <View style={styles.statItem}>
-            <Text style={styles.statNumber}>$285K</Text>
-            <Text style={styles.statLabel}>Total Revenue</Text>
+            <Text style={styles.statNumber}>$45K</Text>
+            <Text style={styles.statLabel}>Total Invested</Text>
           </View>
           
           <View style={styles.statItem}>
-            <Text style={styles.statNumber}>4</Text>
+            <Text style={styles.statNumber}>3</Text>
             <Text style={styles.statLabel}>Active Projects</Text>
           </View>
           
           <View style={styles.statItem}>
-            <Text style={styles.statNumber}>96%</Text>
-            <Text style={styles.statLabel}>Client Satisfaction</Text>
-          </View>
-        </View>
-      </View>
-
-      {/* Specialties */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Specialties</Text>
-        
-        <View style={styles.specialtiesContainer}>
-          <View style={styles.specialtyTag}>
-            <Text style={styles.specialtyText}>Kitchen Renovation</Text>
-          </View>
-          <View style={styles.specialtyTag}>
-            <Text style={styles.specialtyText}>Bathroom Remodel</Text>
-          </View>
-          <View style={styles.specialtyTag}>
-            <Text style={styles.specialtyText}>Flooring</Text>
-          </View>
-          <View style={styles.specialtyTag}>
-            <Text style={styles.specialtyText}>Outdoor Decks</Text>
+            <Text style={styles.statNumber}>98%</Text>
+            <Text style={styles.statLabel}>Satisfaction Rate</Text>
           </View>
         </View>
       </View>
@@ -114,24 +91,24 @@ export default function ContractorProfileScreen() {
         <View style={styles.activityItem}>
           <View style={styles.activityDot} />
           <View style={styles.activityContent}>
-            <Text style={styles.activityTitle}>Kitchen Project Completed</Text>
-            <Text style={styles.activityTime}>1 day ago</Text>
+            <Text style={styles.activityTitle}>Kitchen Renovation Completed</Text>
+            <Text style={styles.activityTime}>2 days ago</Text>
           </View>
         </View>
         
         <View style={styles.activityItem}>
           <View style={styles.activityDot} />
           <View style={styles.activityContent}>
-            <Text style={styles.activityTitle}>New Project Proposal Submitted</Text>
-            <Text style={styles.activityTime}>3 days ago</Text>
-          </View>
-        </View>
-        
-        <View style={styles.activityItem}>
-          <View style={styles.activityDot} />
-          <View style={styles.activityContent}>
-            <Text style={styles.activityTitle}>Client Review Received</Text>
+            <Text style={styles.activityTitle}>New Quote Received</Text>
             <Text style={styles.activityTime}>1 week ago</Text>
+          </View>
+        </View>
+        
+        <View style={styles.activityItem}>
+          <View style={styles.activityDot} />
+          <View style={styles.activityContent}>
+            <Text style={styles.activityTitle}>Project Started</Text>
+            <Text style={styles.activityTime}>2 weeks ago</Text>
           </View>
         </View>
       </View>
@@ -202,12 +179,6 @@ const styles = StyleSheet.create({
   userType: {
     fontSize: 16,
     color: '#64748b',
-    marginBottom: 4,
-  },
-  companyName: {
-    fontSize: 14,
-    color: '#059669',
-    fontWeight: '600',
     marginBottom: 12,
   },
   ratingContainer: {
@@ -262,29 +233,13 @@ const styles = StyleSheet.create({
   statNumber: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#059669',
+    color: '#2563eb',
     marginBottom: 4,
   },
   statLabel: {
     fontSize: 12,
     color: '#64748b',
     textAlign: 'center',
-  },
-  specialtiesContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-  },
-  specialtyTag: {
-    backgroundColor: '#dcfce7',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 16,
-  },
-  specialtyText: {
-    fontSize: 14,
-    color: '#059669',
-    fontWeight: '500',
   },
   activityItem: {
     flexDirection: 'row',
@@ -296,7 +251,7 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: '#059669',
+    backgroundColor: '#2563eb',
     marginTop: 6,
   },
   activityContent: {

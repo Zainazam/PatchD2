@@ -28,7 +28,7 @@ const mockProjects = [
   },
 ];
 
-export default function ProjectsScreen() {
+export default function HomeownerProjectsScreen() {
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'completed':

@@ -1,12 +1,42 @@
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { Chrome as HomeIcon, Hammer, Users, Star, ArrowRight } from 'lucide-react-native';
+import { Chrome as HomeIcon, Hammer, ArrowRight } from 'lucide-react-native';
+import { useAuth } from '@/contexts/AuthContext';
+import { router } from 'expo-router';
 
 const { width } = Dimensions.get('window');
 
-export default function HomeScreen() {
+export default function LandingScreen() {
+  const { user, loading } = useAuth();
+
+  useEffect(() => {
+    if (!loading && user) {
+      // Redirect authenticated users to their dashboard
+      const role = user.user_metadata?.role;
+      if (role === 'homeowner') {
+        router.replace('/(homeowner-dashboard)');
+      } else if (role === 'contractor') {
+        router.replace('/(contractor-dashboard)');
+      }
+    }
+  }, [user, loading]);
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text style={styles.loadingText}>Loading...</Text>
+      </View>
+    );
+  }
+
+  // Don't show landing if user is authenticated
+  if (user) {
+    return null;
+  }
+
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <View style={styles.container}>
       <StatusBar style="dark" />
       
       {/* Header */}
@@ -34,7 +64,11 @@ export default function HomeScreen() {
 
       {/* Action Cards */}
       <View style={styles.actionSection}>
-        <TouchableOpacity style={[styles.actionCard, styles.homeownerCard]} activeOpacity={0.8}>
+        <TouchableOpacity 
+          style={[styles.actionCard, styles.homeownerCard]} 
+          activeOpacity={0.8}
+          onPress={() => router.push('/(homeowner-auth)')}
+        >
           <View style={styles.cardIcon}>
             <HomeIcon size={32} color="#ffffff" />
           </View>
@@ -45,7 +79,11 @@ export default function HomeScreen() {
           <ArrowRight size={24} color="#bfdbfe" />
         </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.actionCard, styles.contractorCard]} activeOpacity={0.8}>
+        <TouchableOpacity 
+          style={[styles.actionCard, styles.contractorCard]} 
+          activeOpacity={0.8}
+          onPress={() => router.push('/(contractor-auth)')}
+        >
           <View style={styles.cardIcon}>
             <Hammer size={32} color="#ffffff" />
           </View>
@@ -57,38 +95,11 @@ export default function HomeScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* Features Section */}
-      <View style={styles.featuresSection}>
-        <Text style={styles.sectionTitle}>Why Choose PatchD?</Text>
-        
-        <View style={styles.featureGrid}>
-          <View style={styles.featureCard}>
-            <View style={styles.featureIcon}>
-              <Star size={24} color="#f59e0b" />
-            </View>
-            <Text style={styles.featureTitle}>AI-Powered Scoping</Text>
-            <Text style={styles.featureDescription}>
-              Advanced AI analyzes your project requirements for accurate estimates
-            </Text>
-          </View>
-
-          <View style={styles.featureCard}>
-            <View style={styles.featureIcon}>
-              <Users size={24} color="#10b981" />
-            </View>
-            <Text style={styles.featureTitle}>Verified Contractors</Text>
-            <Text style={styles.featureDescription}>
-              Connect with pre-screened, qualified professionals in your area
-            </Text>
-          </View>
-        </View>
-      </View>
-
       {/* Footer */}
       <View style={styles.footer}>
         <Text style={styles.footerText}>Powered by AI • Secured by Stripe</Text>
       </View>
-    </ScrollView>
+    </View>
   );
 }
 
@@ -96,6 +107,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f8fafc',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f8fafc',
+  },
+  loadingText: {
+    fontSize: 16,
+    color: '#64748b',
   },
   header: {
     backgroundColor: '#ffffff',
@@ -195,53 +216,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#ffffff',
     opacity: 0.8,
-  },
-  featuresSection: {
-    paddingHorizontal: 20,
-    paddingVertical: 32,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#1e293b',
-    textAlign: 'center',
-    marginBottom: 32,
-  },
-  featureGrid: {
-    gap: 20,
-  },
-  featureCard: {
-    backgroundColor: '#ffffff',
-    padding: 24,
-    borderRadius: 16,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  featureIcon: {
-    width: 48,
-    height: 48,
-    backgroundColor: '#f8fafc',
-    borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 16,
-  },
-  featureTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#1e293b',
-    marginBottom: 8,
-  },
-  featureDescription: {
-    fontSize: 14,
-    color: '#64748b',
-    lineHeight: 20,
   },
   footer: {
     paddingHorizontal: 20,

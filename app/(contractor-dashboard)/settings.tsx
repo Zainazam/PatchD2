@@ -1,10 +1,12 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Switch } from 'react-native';
 import { Bell, Shield, CreditCard, CircleHelp as HelpCircle, LogOut, ChevronRight, Moon, Globe, Smartphone } from 'lucide-react-native';
 import { useState } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
 
-export default function SettingsScreen() {
+export default function ContractorSettingsScreen() {
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [darkModeEnabled, setDarkModeEnabled] = useState(false);
+  const { signOut } = useAuth();
 
   const SettingItem = ({ 
     icon, 
@@ -57,16 +59,16 @@ export default function SettingsScreen() {
         <Text style={styles.sectionTitle}>Account</Text>
         
         <SettingItem
-          icon={<Shield size={20} color="#2563eb" />}
+          icon={<Shield size={20} color="#059669" />}
           title="Privacy & Security"
           subtitle="Manage your account security"
           onPress={() => {}}
         />
         
         <SettingItem
-          icon={<CreditCard size={20} color="#059669" />}
-          title="Payment Methods"
-          subtitle="Manage cards and billing"
+          icon={<CreditCard size={20} color="#2563eb" />}
+          title="Payment & Billing"
+          subtitle="Manage earnings and payments"
           onPress={() => {}}
         />
       </View>
@@ -78,14 +80,14 @@ export default function SettingsScreen() {
         <SettingItem
           icon={<Bell size={20} color="#f59e0b" />}
           title="Notifications"
-          subtitle="Push notifications and alerts"
+          subtitle="Project alerts and updates"
           showArrow={false}
           rightComponent={
             <Switch
               value={notificationsEnabled}
               onValueChange={setNotificationsEnabled}
-              trackColor={{ false: '#e2e8f0', true: '#bfdbfe' }}
-              thumbColor={notificationsEnabled ? '#2563eb' : '#94a3b8'}
+              trackColor={{ false: '#e2e8f0', true: '#bbf7d0' }}
+              thumbColor={notificationsEnabled ? '#059669' : '#94a3b8'}
             />
           }
         />
@@ -99,8 +101,8 @@ export default function SettingsScreen() {
             <Switch
               value={darkModeEnabled}
               onValueChange={setDarkModeEnabled}
-              trackColor={{ false: '#e2e8f0', true: '#bfdbfe' }}
-              thumbColor={darkModeEnabled ? '#2563eb' : '#94a3b8'}
+              trackColor={{ false: '#e2e8f0', true: '#bbf7d0' }}
+              thumbColor={darkModeEnabled ? '#059669' : '#94a3b8'}
             />
           }
         />
@@ -139,23 +141,9 @@ export default function SettingsScreen() {
         />
       </View>
 
-      {/* App Info */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>About</Text>
-        
-        <View style={styles.appInfo}>
-          <Text style={styles.appName}>PatchD</Text>
-          <Text style={styles.appVersion}>Version 1.0.0</Text>
-          <Text style={styles.appDescription}>
-            Home projects, scoped by AI. Fast, clear quotes for homeowners. 
-            Steady, well-scoped work for contractors.
-          </Text>
-        </View>
-      </View>
-
       {/* Logout */}
       <View style={styles.section}>
-        <TouchableOpacity style={styles.logoutButton} activeOpacity={0.8}>
+        <TouchableOpacity style={styles.logoutButton} onPress={signOut} activeOpacity={0.8}>
           <LogOut size={20} color="#dc2626" />
           <Text style={styles.logoutText}>Sign Out</Text>
         </TouchableOpacity>
@@ -240,28 +228,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-  },
-  appInfo: {
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-    alignItems: 'center',
-  },
-  appName: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#1e293b',
-    marginBottom: 4,
-  },
-  appVersion: {
-    fontSize: 14,
-    color: '#64748b',
-    marginBottom: 12,
-  },
-  appDescription: {
-    fontSize: 14,
-    color: '#64748b',
-    textAlign: 'center',
-    lineHeight: 20,
   },
   logoutButton: {
     flexDirection: 'row',

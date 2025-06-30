@@ -2,7 +2,7 @@ import { Tabs } from 'expo-router';
 import { Chrome as Home, User, Settings, Briefcase } from 'lucide-react-native';
 import { StyleSheet } from 'react-native';
 
-export default function TabLayout() {
+export default function HomeownerDashboardLayout() {
   return (
     <Tabs
       screenOptions={{

@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { Home as HomeIcon, Hammer, Users, Star, ArrowRight } from 'lucide-react-native';
+import { Chrome as HomeIcon, Hammer, Users, Star, ArrowRight } from 'lucide-react-native';
 
 const { width } = Dimensions.get('window');
 

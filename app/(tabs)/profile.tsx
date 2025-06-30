@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
-import { Edit, MapPin, Phone, Mail, Star, Award } from 'lucide-react-native';
+import { CreditCard as Edit, MapPin, Phone, Mail, Star, Award } from 'lucide-react-native';
 
 export default function ProfileScreen() {
   return (

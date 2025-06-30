@@ -1,15 +1,5 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Switch } from 'react-native';
-import { 
-  Bell, 
-  Shield, 
-  CreditCard, 
-  HelpCircle, 
-  LogOut, 
-  ChevronRight,
-  Moon,
-  Globe,
-  Smartphone
-} from 'lucide-react-native';
+import { Bell, Shield, CreditCard, CircleHelp as HelpCircle, LogOut, ChevronRight, Moon, Globe, Smartphone } from 'lucide-react-native';
 import { useState } from 'react';
 
 export default function SettingsScreen() {
